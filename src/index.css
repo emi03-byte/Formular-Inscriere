@@ -1,0 +1,71 @@
+:root {
+  --text-h: #1a2332;
+  --text-muted: #5c6b7a;
+  --placeholder: #9aa8b5;
+  --card-bg: #ffffff;
+  --input-bg: #fafbfc;
+  --child-card-bg: #f4f7fa;
+  --page-bg-start: #e8eef4;
+  --page-bg-end: #f0f4f8;
+  --border: #dce3eb;
+  --border-hover: #b8c5d4;
+  --accent: #2d6a9f;
+  --accent-hover: #245a87;
+  --accent-bg: rgba(45, 106, 159, 0.08);
+  --accent-bg-hover: rgba(45, 106, 159, 0.14);
+  --accent-border: rgba(45, 106, 159, 0.35);
+  --accent-ring: rgba(45, 106, 159, 0.25);
+  --success-bg: #e8f5ee;
+  --success-border: #a8d4bc;
+  --success-text: #1e5c3a;
+  --error-bg: rgba(185, 50, 50, 0.08);
+  --error-border: #d4a0a0;
+  --error-text: #9b2c2c;
+  --shadow:
+    0 4px 6px -1px rgba(26, 35, 50, 0.06),
+    0 12px 28px -4px rgba(26, 35, 50, 0.1);
+
+  --font: 'DM Sans', system-ui, 'Segoe UI', Roboto, sans-serif;
+
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-h);
+  background: var(--page-bg-end);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100svh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+button {
+  font-family: inherit;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
