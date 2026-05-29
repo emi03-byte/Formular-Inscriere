@@ -73,7 +73,8 @@ export async function initDb(): Promise<void> {
   }
 
   const Database = (await import('better-sqlite3')).default
-  const dataDir = path.join(__dirname, '../data')
+  const dataDir =
+    process.env.DATA_DIR ?? path.join(__dirname, '../data')
   fs.mkdirSync(dataDir, { recursive: true })
   sqliteDb = new Database(path.join(dataDir, 'inscrieri.db'))
   sqliteDb.pragma('foreign_keys = ON')
