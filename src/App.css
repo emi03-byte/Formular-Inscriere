@@ -62,6 +62,11 @@
   opacity: 0.95;
 }
 
+.btn-download-pdf {
+  width: 100%;
+  margin-top: 0.875rem;
+}
+
 .error-banner {
   margin-bottom: 1.5rem;
   padding: 1rem 1.125rem;
@@ -397,6 +402,180 @@
   font-size: 0.925rem;
 }
 
+.policy-box {
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 1rem 1.125rem;
+  border-radius: 12px;
+  background: var(--success-bg);
+  border: 1px solid var(--success-border);
+  -webkit-overflow-scrolling: touch;
+}
+
+.policy-box-content {
+  padding-right: 0.25rem;
+}
+
+.policy-box-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--success-text);
+}
+
+.policy-box-heading {
+  margin: 0.875rem 0 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--success-text);
+}
+
+.policy-box-text {
+  margin: 0 0 0.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--success-text);
+}
+
+.policy-box-list {
+  margin: 0 0 0.5rem;
+  padding-left: 1.125rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--success-text);
+}
+
+.policy-box-list li {
+  margin-bottom: 0.35rem;
+}
+
+.policy-box-list li:last-child {
+  margin-bottom: 0;
+}
+
+.consent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.consent-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background: var(--input-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.consent-card input[type='checkbox'] {
+  width: 1.125rem;
+  height: 1.125rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+}
+
+.consent-card-text {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--text-h);
+}
+
+.consent-inline-label {
+  cursor: pointer;
+}
+
+.consent-link {
+  position: relative;
+  z-index: 1;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.consent-link:hover {
+  text-decoration: underline;
+}
+
+.legal-doc-card {
+  max-width: 640px;
+}
+
+.legal-doc-content {
+  margin-bottom: 1.5rem;
+}
+
+.legal-doc-content p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--text-h);
+}
+
+.required-mark {
+  color: var(--error-text);
+}
+
+.signature-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.signature-canvas {
+  display: block;
+  width: 100%;
+  height: 280px;
+  border: 1px dashed var(--border-hover);
+  border-radius: 12px;
+  background: #fff;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.btn-clear-signature {
+  align-self: flex-start;
+  color: var(--text-muted);
+}
+
+.btn-clear-signature:hover {
+  color: var(--error-text);
+  background: var(--error-bg);
+}
+
+.submission-consent {
+  margin-top: 0.5rem;
+}
+
+.submission-consent ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.25rem;
+}
+
+.submission-consent li {
+  font-size: 0.875rem;
+  margin-bottom: 0.2rem;
+}
+
+.submission-signature {
+  margin-top: 0.75rem;
+}
+
+.signature-preview {
+  display: block;
+  margin-top: 0.5rem;
+  max-width: 220px;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
 @media (max-width: 480px) {
   .page {
     padding: 1.25rem 1rem 2rem;
@@ -413,5 +592,9 @@
 
   .field-age input {
     max-width: 100%;
+  }
+
+  .signature-canvas {
+    height: 400px;
   }
 }

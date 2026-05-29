@@ -2,27 +2,38 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { submitEnrollment } from '../api/submissions'
 import { ChildrenSection } from '../components/ChildrenSection'
+import { ConsentSection } from '../components/ConsentSection'
 import { ParentSection } from '../components/ParentSection'
+import { SignatureSection } from '../components/SignatureSection'
 import {
   createChild,
+  emptyConsent,
   emptyParent,
   type ChildData,
+  type ConsentData,
   type FormPayload,
   type ParentData,
 } from '../types'
+import { buildEnrollmentPdf, blobToBase64 } from '../utils/generateEnrollmentPdf'
 import '../App.css'
 
 export function FormPage() {
   const [parent, setParent] = useState<ParentData>(emptyParent)
   const [children, setChildren] = useState<ChildData[]>([createChild()])
+  const [consent, setConsent] = useState<ConsentData>(emptyConsent)
+  const [signature, setSignature] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const updateParent = (field: keyof ParentData, value: string) => {
-    setParent((prev) => ({ ...prev, [field]: value }))
+  const clearFeedback = () => {
     setSubmitted(false)
     setError(null)
+  }
+
+  const updateParent = (field: keyof ParentData, value: string) => {
+    setParent((prev) => ({ ...prev, [field]: value }))
+    clearFeedback()
   }
 
   const updateChild = (
@@ -35,14 +46,17 @@ export function FormPage() {
         child.id === id ? { ...child, [field]: value } : child,
       ),
     )
-    setSubmitted(false)
-    setError(null)
+    clearFeedback()
+  }
+
+  const updateConsent = (field: keyof ConsentData, value: boolean) => {
+    setConsent((prev) => ({ ...prev, [field]: value }))
+    clearFeedback()
   }
 
   const addChild = () => {
     setChildren((prev) => [...prev, createChild()])
-    setSubmitted(false)
-    setError(null)
+    clearFeedback()
   }
 
   const removeChild = (id: string) => {
@@ -50,8 +64,7 @@ export function FormPage() {
       if (prev.length <= 1) return prev
       return prev.filter((child) => child.id !== id)
     })
-    setSubmitted(false)
-    setError(null)
+    clearFeedback()
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -63,14 +76,25 @@ export function FormPage() {
       return
     }
 
-    const payload: FormPayload = { parent, children }
+    if (!signature) {
+      setError('Semnătura este obligatorie.')
+      return
+    }
+
+    const payload: FormPayload = { parent, children, consent, signature }
     setIsSubmitting(true)
     setError(null)
 
     try {
-      await submitEnrollment(payload)
+      const pdf = await buildEnrollmentPdf(payload)
+      const pdfBase64 = await blobToBase64(pdf.blob)
+
+      await submitEnrollment({ ...payload, pdfBase64 })
+
       setParent(emptyParent())
       setChildren([createChild()])
+      setConsent(emptyConsent())
+      setSignature('')
       setSubmitted(true)
       form.scrollIntoView({ behavior: 'smooth', block: 'start' })
     } catch (submitError) {
@@ -93,8 +117,7 @@ export function FormPage() {
 
         {submitted && (
           <div className="success-banner" role="status">
-            <strong>Înscrierea a fost înregistrată!</strong>
-            <p>Datele au fost salvate cu succes. Puteți completa o nouă înscriere.</p>
+            <strong>Înscrierea dumneavoastră a fost înregistrată.</strong>
           </div>
         )}
 
@@ -116,6 +139,14 @@ export function FormPage() {
             onAdd={addChild}
             onRemove={removeChild}
           />
+
+          <div className="section-divider" role="separator" aria-hidden="true" />
+
+          <ConsentSection data={consent} onChange={updateConsent} />
+
+          <div className="section-divider" role="separator" aria-hidden="true" />
+
+          <SignatureSection value={signature} onChange={setSignature} />
 
           <footer className="form-footer">
             <button type="submit" className="btn-primary" disabled={isSubmitting}>

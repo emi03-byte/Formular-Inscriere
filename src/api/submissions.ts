@@ -12,6 +12,10 @@ export type SavedSubmission = {
   parentEmail: string
   parentPhone: string | null
   createdAt: string
+  consentTerms: boolean
+  consentMedia: boolean
+  consentMarketing: boolean
+  signatureData: string
   children: SavedChild[]
 }
 

@@ -23,21 +23,3 @@ export type FormPayload = {
   signature: string
   pdfBase64?: string
 }
-
-export const emptyParent = (): ParentData => ({
-  fullName: '',
-  email: '',
-  phone: '',
-})
-
-export const emptyConsent = (): ConsentData => ({
-  termsAccepted: false,
-  mediaAccepted: false,
-  marketingAccepted: false,
-})
-
-export const createChild = (): ChildData => ({
-  id: crypto.randomUUID(),
-  fullName: '',
-  age: '',
-})

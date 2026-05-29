@@ -6,14 +6,17 @@
   "scripts": {
     "dev": "concurrently \"vite\" \"tsx watch --env-file=.env server/index.ts\"",
     "dev:server": "tsx watch --env-file=.env server/index.ts",
-    "build": "tsc -b && vite build",
-    "start": "tsx server/index.ts",
+    "build": "tsc -p server/tsconfig.json && tsc -b && vite build",
+    "start": "node server/dist/index.js",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "better-sqlite3": "^11.9.1",
     "express": "^5.1.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.1",
+    "nodemailer": "^8.0.10",
     "pg": "^8.14.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
@@ -25,6 +28,7 @@
     "@types/better-sqlite3": "^7.6.13",
     "@types/express": "^5.0.1",
     "@types/node": "^24.12.3",
+    "@types/nodemailer": "^8.0.0",
     "@types/pg": "^8.11.11",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

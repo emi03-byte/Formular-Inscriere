@@ -161,6 +161,27 @@ export function AdminPage() {
                     ))}
                   </ul>
                 </div>
+                <div className="submission-consent">
+                  <span className="label">Consimțământ:</span>
+                  <ul>
+                    <li>Termeni &amp; confidențialitate: {submission.consentTerms ? 'Da' : 'Nu'}</li>
+                    <li>
+                      Luare la cunoștință — apariție în fotografii și clipuri
+                      video: {submission.consentMedia ? 'Da' : 'Nu'}
+                    </li>
+                    <li>Informări viitoare: {submission.consentMarketing ? 'Da' : 'Nu'}</li>
+                  </ul>
+                </div>
+                {submission.signatureData && (
+                  <div className="submission-signature">
+                    <span className="label">Semnătură:</span>
+                    <img
+                      src={submission.signatureData}
+                      alt={`Semnătura pentru înscrierea ${submission.id}`}
+                      className="signature-preview"
+                    />
+                  </div>
+                )}
               </div>
             </article>
           ))}
