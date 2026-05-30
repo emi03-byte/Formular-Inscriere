@@ -133,7 +133,19 @@ export async function initDb(): Promise<void> {
     process.env.DATA_DIR ??
     path.join(__dirname, isCompiled ? '../../data' : '../data')
   fs.mkdirSync(dataDir, { recursive: true })
-  sqliteDb = new Database(path.join(dataDir, 'inscrieri.db'))
+
+  const dbPath = path.join(dataDir, 'inscrieri.db')
+  if (process.env.RESET_DB === 'true') {
+    for (const suffix of ['', '-wal', '-shm']) {
+      const filePath = `${dbPath}${suffix}`
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath)
+      }
+    }
+    console.log('[db] RESET_DB: baza de date ștearsă — ID-urile vor porni de la 1')
+  }
+
+  sqliteDb = new Database(dbPath)
   sqliteDb.pragma('foreign_keys = ON')
   sqliteDb.exec(SCHEMA_SQLITE)
   migrateSqlite(sqliteDb)
